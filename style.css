@@ -41,5 +41,28 @@ body{
 .task{
     display:flex;
     justify-content: space-between;
-    padding:1em;
+    align-items: center;
+    line-height: 50px;
+}
+.task button{
+    border:none;
+    background:none;
+    margin:0 15px;
+}
+.task button img{
+    width:30px;
+    height:30px;
+}
+.task > div:first-child{
+    width:80%;
+    text-indent: 10px;
+}
+.task > div:last-child{
+    width:20%;
+    text-align:end;
+}
+.task-done{
+    display:block;
+    text-decoration:line-through;
+    background-color:lightgray;
 }
