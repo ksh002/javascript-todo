@@ -276,4 +276,16 @@ header p{
     .task button{
         margin:0 5px;
     }
+    .container{
+        padding:1em;
+        border-radius: 30px;
+    }
+    .inner{
+        padding:1em;
+        border-radius: 30px;
+    }
+    .task-area{
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+    }
 }
