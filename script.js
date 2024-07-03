@@ -14,10 +14,39 @@ let taskInput = document.getElementById("task-input")
 let addBtn = document.getElementById("add-button")
 let taskList = []
 let filter = 'all'
+let time = document.getElementById("time")
+let inputDelete = document.getElementById('input-delete')
+
+function updateTime() {
+    const timeElement = document.getElementById('time');
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
+    const formattedTime = `${hours}:${minutes}:${seconds}`;
+    timeElement.textContent = formattedTime;
+}
+updateTime();
+setInterval(updateTime, 1000)
 
 addBtn.addEventListener('click', addTask)
+inputDelete.addEventListener('click', function(){
+    taskInput.value = ""
+})
+
+taskInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+        addTask();
+    }
+})
 
 function addTask(){
+    let taskContent = taskInput.value.trim();
+
+    if (taskContent === ""){
+        alert("할일을 입력해주세요")
+        return;
+    }
     let task = {
         id : randomIDGenerate(),
         taskContent : taskInput.value,
@@ -25,7 +54,15 @@ function addTask(){
     }
     taskList.push(task)
     console.log(taskList)
+    taskInput.value = ""
     render()
+}
+
+function setActiveTab(element) {
+    const tabDiv = element.closest('div');
+    const underLine = document.getElementById('under-line');
+    underLine.style.left = tabDiv.offsetLeft + 'px';
+    underLine.style.width = tabDiv.offsetWidth + 'px';
 }
 
 function render(){
@@ -43,22 +80,22 @@ function render(){
     for(let i = 0; i < filteredList.length; i++){
         if (filteredList[i].isComplete){
             resultHTML += `<div class="task">
-                    <div class="task-done">
-                        ${filteredList[i].taskContent}
+                    <div class="">
+                        <span class=task-done>${filteredList[i].taskContent}</span>
                     </div>
                     <div>
-                        <button onclick="toggleComplete('${filteredList[i].id}')"><img src="images/reset.png" alt="리셋표시 이미지"></button>
-                        <button onclick="deleteTask()"><img src="images/trash.png" alt="쓰레기통 이미지"></button>
+                        <button onclick="toggleComplete('${filteredList[i].id}')"><i class="fa-solid fa-reply"></i></button>
+                        <button onclick="deleteTask()"><i class="fa-solid fa-xmark"></i></button>
                     </div>
                 </div>`
         } else{
             resultHTML += `<div class="task">
-                    <div>
+                    <div class="text">
                         ${filteredList[i].taskContent}
                     </div>
                     <div>
-                        <button onclick="toggleComplete('${filteredList[i].id}')"><img src="images/complete.png" alt="체크표시 이미지"></button>
-                        <button onclick="deleteTask('${filteredList[i].id}')"><img src="images/trash.png" alt="쓰레기통 이미지"></button>
+                        <button onclick="toggleComplete('${filteredList[i].id}')"><i class="fa-solid fa-check"></i></button>
+                        <button onclick="deleteTask('${filteredList[i].id}')"><i class="fa-solid fa-xmark"></i></button>
                     </div>
                 </div>`
         }
@@ -97,9 +134,19 @@ function activeTask(){
 
 function completeTask(){
     filter = 'complete'
+    console.log('클릭')
     render()
 }
 
 function randomIDGenerate(){
     return '_' + Math.random().toString(36).substr(2, 9);
+}
+
+window.onload = () => {
+    const activeTab = document.querySelector('.task-tabs div.active');
+    if (activeTab) {
+        const underLine = document.getElementById('under-line');
+        underLine.style.left = activeTab.offsetLeft + 'px';
+        underLine.style.width = activeTab.offsetWidth + 'px';
+    }
 }
