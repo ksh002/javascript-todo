@@ -82,6 +82,7 @@ header p{
     justify-content: space-around;
     padding:20px;
 }
+
 .task-tabs div{
     position:relative;
 }
@@ -113,9 +114,13 @@ header p{
 .task-tabs p{
     margin-top:5px;
     font-size:13px;
-    font-weight:bold;
+    font-weight:normal;
     color:rgba(0, 0, 0, 0.5);
     text-align: center;
+}
+.task-tabs p.active {
+    font-size:15px;
+    font-weight: bold;
 }
 
 /* .task-tabs div.active::after{
@@ -276,6 +281,7 @@ header p{
     .task button{
         margin:0 5px;
     }
+    
     .container{
         padding:1em;
         border-radius: 30px;

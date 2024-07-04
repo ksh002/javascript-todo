@@ -59,10 +59,16 @@ function addTask(){
 }
 
 function setActiveTab(element) {
-    const tabDiv = element.closest('div');
+    const tabs = document.querySelectorAll('.task-tabs p');
+    tabs.forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    element.classList.add('active');
+
     const underLine = document.getElementById('under-line');
-    underLine.style.left = tabDiv.offsetLeft + 'px';
-    underLine.style.width = tabDiv.offsetWidth + 'px';
+    underLine.style.left = element.parentElement.offsetLeft + 'px';
+    underLine.style.width = element.parentElement.offsetWidth + 'px';
 }
 
 function render(){
@@ -124,17 +130,19 @@ function deleteTask(id){
 
 function allTask(){
     filter = 'all'
+    setActiveTab(document.querySelector('.task-tabs div:nth-child(1) p'));
     render()
 }
 
 function activeTask(){
     filter = 'active'
+    setActiveTab(document.querySelector('.task-tabs div:nth-child(2) p'));
     render()
 }
 
 function completeTask(){
     filter = 'complete'
-    console.log('클릭')
+    setActiveTab(document.querySelector('.task-tabs div:nth-child(3) p'));
     render()
 }
 
@@ -143,10 +151,12 @@ function randomIDGenerate(){
 }
 
 window.onload = () => {
-    const activeTab = document.querySelector('.task-tabs div.active');
+    const activeTab = document.querySelector('.task-tabs div:nth-child(1) p');
+    setActiveTab(activeTab);
+
     if (activeTab) {
         const underLine = document.getElementById('under-line');
-        underLine.style.left = activeTab.offsetLeft + 'px';
-        underLine.style.width = activeTab.offsetWidth + 'px';
+        underLine.style.left = activeTab.parentElement.offsetLeft + 'px';
+        underLine.style.width = activeTab.parentElement.offsetWidth + 'px';
     }
 }
