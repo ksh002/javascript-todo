@@ -66,10 +66,11 @@ function setActiveTab(element) {
     
     element.classList.add('active');
 
-    const underLine = document.getElementById('under-line');
-    underLine.style.left = element.parentElement.offsetLeft + 'px';
-    underLine.style.width = element.parentElement.offsetWidth + 'px';
+    // const underLine = document.getElementById('under-line');
+    // underLine.style.left = element.parentElement.offsetLeft + 'px';
+    // underLine.style.width = element.parentElement.offsetWidth + 'px';
 }
+
 
 function render(){
     let filteredList = [];
@@ -82,6 +83,7 @@ function render(){
     } else if (filter === 'complete'){
         filteredList = taskList.filter(task => task.isComplete);
     }
+    console.log(filter)
 
     for(let i = 0; i < filteredList.length; i++){
         if (filteredList[i].isComplete){
@@ -151,12 +153,14 @@ function randomIDGenerate(){
 }
 
 window.onload = () => {
-    const activeTab = document.querySelector('.task-tabs div:nth-child(1) p');
-    setActiveTab(activeTab);
+    const tabs = document.querySelectorAll('.task-tabs p');
+    if (tabs.length > 0) {
+        setActiveTab(tabs[0]);
 
-    if (activeTab) {
-        const underLine = document.getElementById('under-line');
-        underLine.style.left = activeTab.parentElement.offsetLeft + 'px';
-        underLine.style.width = activeTab.parentElement.offsetWidth + 'px';
+        // const underLine = document.getElementById('under-line');
+        // if (underLine && tabs[0].parentElement) {
+        //     underLine.style.left = tabs[0].parentElement.offsetLeft + 'px';
+        //     underLine.style.width = tabs[0].parentElement.offsetWidth + 'px';
+        // }
     }
 }
